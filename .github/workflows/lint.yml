@@ -1,0 +1,30 @@
+name: Code standards check
+
+on:
+  - pull_request
+
+jobs:
+  tsc-eslint-prettier:
+    name: Running type check, lint and prettier
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run lint script
+        run: yarn lint

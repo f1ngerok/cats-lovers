@@ -1,0 +1,44 @@
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
+import { type Configuration } from 'webpack';
+import { merge } from 'webpack-merge';
+
+import commonConfig from './webpack.common';
+
+const prodConfig: Configuration = {
+  mode: 'production',
+  devtool: 'source-map',
+  target: 'browserslist',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.[contenthash].js',
+    chunkFilename: '[name].[chunkhash].js',
+    publicPath: '/',
+    clean: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+    },
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/[name].[contenthash].css',
+    }),
+  ],
+};
+
+export default merge(commonConfig, prodConfig);
