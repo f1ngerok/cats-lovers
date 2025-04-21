@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+@layer base {
+  * {
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+}
+
 @layer components {
   .layout {
     @apply mx-auto w-full max-w-6xl px-4 xl:px-0;
