@@ -41,7 +41,6 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       title: 'Cats Lovers',
       template: path.resolve(__dirname, 'public', 'index.html'),
-      favicon: path.resolve(__dirname, 'public', 'favicon.svg'),
     }),
   ],
   resolve: {
