@@ -38,6 +38,9 @@ jobs:
       - name: Checkout to project
         uses: actions/checkout@v4
 
+      - name: Set up environment variables
+        run: cp .env.example .env
+
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
 
