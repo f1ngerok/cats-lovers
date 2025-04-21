@@ -23,7 +23,7 @@
       "eslint",
       "prettier --check"
     ],
-    "*.{ts,tsx}": "yarn tsc -noEmit"
+    "*.{ts,tsx}": "bash -c yarn tsc"
   },
   "packageManager": "yarn@1.22.22",
   "browserslist": [
