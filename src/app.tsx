@@ -12,6 +12,7 @@ import {
   SignInPage,
   AboutPage,
 } from '@/routes';
+import { ROUTES } from '@/utils/constants/routes';
 
 const router = createBrowserRouter([
   {
@@ -19,11 +20,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: ArticlesPage },
       { path: 'article/:articleId', Component: ArticleDetailPage },
-      { path: 'auth/signin', Component: SignInPage },
-      { path: 'about', Component: AboutPage },
+      { path: ROUTES.SIGN_IN, Component: SignInPage },
+      { path: ROUTES.ABOUT, Component: AboutPage },
 
       { path: 'article/:articleId/edit', Component: ArticleEditPage },
-      { path: 'article/create', Component: ArticleCreatePage },
+      { path: ROUTES.ARTICLE_CREATE, Component: ArticleCreatePage },
 
       { path: '*', Component: ErrorPage },
     ],
