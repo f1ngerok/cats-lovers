@@ -28,7 +28,6 @@ const devConfig: Configuration & DevServerConfiguration = {
     minimize: false,
   },
   plugins: [new ProgressPlugin()],
-  watchOptions: {},
 };
 
 export default merge(commonConfig, devConfig);

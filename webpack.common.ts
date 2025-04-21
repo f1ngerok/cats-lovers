@@ -9,6 +9,13 @@ const config: Configuration = {
   mode: 'development',
   context: __dirname,
   entry: path.resolve(__dirname, 'src', 'main.tsx'),
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.[contenthash].js',
+    chunkFilename: '[name].[chunkhash].js',
+    publicPath: '/',
+    clean: false,
+  },
   module: {
     rules: [
       {
@@ -32,6 +39,7 @@ const config: Configuration = {
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
+      title: 'Cats Lovers',
       template: path.resolve(__dirname, 'public', 'index.html'),
       favicon: path.resolve(__dirname, 'public', 'favicon.svg'),
     }),

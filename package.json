@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "main": "src/main.tsx",
-  "homepage": "https://cat-blog.vercel.app",
+  "homepage": "https://cats-lovers-ebon.vercel.app",
   "scripts": {
     "dev": "webpack serve -c webpack.dev.ts",
     "build": "webpack build -c webpack.prod.ts",
@@ -23,7 +23,7 @@
       "eslint",
       "prettier --check"
     ],
-    "*.{ts,tsx}": "yarn tsc"
+    "*.{ts,tsx}": "yarn tsc -noEmit"
   },
   "packageManager": "yarn@1.22.22",
   "browserslist": [
