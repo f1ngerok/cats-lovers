@@ -1,6 +1,5 @@
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import { type Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
@@ -12,10 +11,6 @@ const prodConfig: Configuration = {
   devtool: 'source-map',
   target: 'browserslist',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.[contenthash].js',
-    chunkFilename: '[name].[chunkhash].js',
-    publicPath: '/',
     clean: true,
   },
   module: {
