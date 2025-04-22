@@ -4,7 +4,7 @@ interface ArrowForwardIconProps extends SVGProps<SVGSVGElement> {
   ref?: RefObject<SVGSVGElement | null>;
 }
 
-export const ArrowForward: FC<ArrowForwardIconProps> = props => {
+export const ArrowForwardIcon: FC<ArrowForwardIconProps> = props => {
   return (
     <svg
       {...props}

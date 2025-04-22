@@ -1,8 +1,15 @@
 import type { FC, ReactNode } from 'react';
 
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import logo from '@/assets/images/logo.png';
+import {
+  NavigationMenu,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+  NavigationMenuItem,
+} from '@/components/ui';
 import { ROUTES } from '@/utils/constants';
 
 interface NavbarItem {
@@ -17,20 +24,23 @@ const navbarItems: NavbarItem[] = [
 ];
 
 export const Navbar: FC = () => {
+  const { pathname } = useLocation();
+
   return (
-    <nav>
-      <ul className='flex items-center gap-10'>
+    <NavigationMenu>
+      <NavigationMenuList>
         {navbarItems.map((item, index) => (
-          <li key={index}>
-            <Link
-              className='text=[#6C757D] active:text=[#212529] font-normal'
-              to={item.to}
+          <NavigationMenuItem key={index}>
+            <NavigationMenuLink
+              asChild
+              active={item.to === pathname}
+              className={navigationMenuTriggerStyle()}
             >
-              {item.label}
-            </Link>
-          </li>
+              <Link to={item.to}>{item.label}</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         ))}
-      </ul>
-    </nav>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };

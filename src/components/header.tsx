@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { Link } from 'react-router';
 
-import { ArrowForward } from '@/assets/svg';
+import { ArrowForwardIcon } from '@/assets/svg';
 import { Navbar } from '@/components';
 import { Button } from '@/components/ui';
 import { ROUTES } from '@/utils/constants';
@@ -15,7 +15,7 @@ export const Header: FC = () => {
         <Button asChild className='text-blue-600' variant='link'>
           <Link to={ROUTES.SIGN_IN}>
             Login
-            <ArrowForward className='text-inherit' />
+            <ArrowForwardIcon className='text-inherit' />
           </Link>
         </Button>
       </div>
