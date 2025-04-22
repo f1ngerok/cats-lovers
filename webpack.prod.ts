@@ -1,5 +1,7 @@
+import CopyPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import { type Configuration } from 'webpack';
 import { merge } from 'webpack-merge';
@@ -32,6 +34,15 @@ const prodConfig: Configuration = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'assets/css/[name].[contenthash].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, 'public', 'favicon'), to: 'favicon' },
+        {
+          from: path.resolve(__dirname, 'public', 'site.webmanifest'),
+          to: 'site.webmanifest',
+        },
+      ],
     }),
   ],
 };

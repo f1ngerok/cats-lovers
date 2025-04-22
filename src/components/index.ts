@@ -1,1 +1,3 @@
-export * from './ErrorFallback';
+export * from './error-fallback';
+export * from './header';
+export * from './navbar';

@@ -2,10 +2,10 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { ErrorBoundary } from 'react-error-boundary';
 
-import type { QueryProviderProps } from '@/utils/query/';
+import type { QueryProviderProps } from '@/utils/contexts/query';
 
 import { ErrorFallback } from '@/components';
-import { QueryProvider } from '@/utils/query/';
+import { QueryProvider } from '@/utils/contexts/query';
 
 export interface ProvidersProps extends PropsWithChildren {
   query: Omit<QueryProviderProps, 'children'>;
