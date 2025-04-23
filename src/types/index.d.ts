@@ -43,11 +43,13 @@ type LoginResponse = {
 
 type PaginatedArticles = {
   items: Article[];
-  pagination: {
-    offset: number;
-    limit: number;
-    total: number;
-  };
+  pagination: Pagination;
+};
+
+type Pagination = {
+  offset: number;
+  limit: number;
+  total: number;
 };
 
 type VoteResponse = {
