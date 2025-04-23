@@ -6,5 +6,5 @@ export interface GetArticlesParams {
 }
 
 export const getArticlesList = (params: GetArticlesParams) => {
-  return api.get<Article[]>('/articles', { params });
+  return api.get<PaginatedArticles>('/articles', { params });
 };

@@ -11,16 +11,16 @@ import { getArticlesList } from '@/utils/api/requests/articles/list';
 export const useGetArticlesQuery = (
   payload: GetArticlesParams,
   options?: UseQueryOptions<
-    AxiosResponse<Article[]>,
+    AxiosResponse<PaginatedArticles>,
     AxiosError,
-    AxiosResponse<Article[]>,
+    AxiosResponse<PaginatedArticles>,
     readonly string[]
   >
-): UseQueryResult<AxiosResponse<Article[]>, AxiosError> => {
+): UseQueryResult<AxiosResponse<PaginatedArticles>, AxiosError> => {
   return useQuery<
-    AxiosResponse<Article[]>,
+    AxiosResponse<PaginatedArticles>,
     AxiosError,
-    AxiosResponse<Article[]>,
+    AxiosResponse<PaginatedArticles>,
     readonly string[]
   >({
     queryKey: articlesKeys.list(payload),
