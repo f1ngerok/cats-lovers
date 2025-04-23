@@ -14,7 +14,9 @@ export default tsLint.config(
     name: 'cat-lovers/eslint/rules',
     rules: {
       ...esLint.configs.recommended.rules,
+      'no-undef': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      'func-style': ['error', 'expression', { allowArrowFunctions: true }],
     },
   },
   {
