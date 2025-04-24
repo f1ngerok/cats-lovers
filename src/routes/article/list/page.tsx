@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { IDS } from '@/utils/constants';
 
 import { ArticleList } from './components';
-import { ArticleListProvider } from './context/article-list-provider';
+import { ArticleListProvider } from './context';
 
 export const ArticlesPage: FC = () => {
   return (
@@ -13,7 +13,7 @@ export const ArticlesPage: FC = () => {
     >
       <h1 className='text-[40px] font-medium'>Recent articles</h1>
 
-      <ArticleListProvider defaultArticles={[]}>
+      <ArticleListProvider>
         <ArticleList />
       </ArticleListProvider>
     </main>

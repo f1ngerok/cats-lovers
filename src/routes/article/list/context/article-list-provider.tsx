@@ -9,26 +9,27 @@ import { GetArticlesParams } from '@/utils/api/requests/articles/list';
 import { ArticleListLoader } from '../loader';
 import { ArticleListContext } from './article-list-context';
 
-interface ArticleListProviderProps extends PropsWithChildren {
-  defaultArticles: Article[];
-}
-
-export const ArticleListProvider: FC<ArticleListProviderProps> = ({
-  children,
-  defaultArticles = [],
-}) => {
+export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [searchParams] = useSearchParams();
-  const [articles, setArticles] = useState<Article[]>(defaultArticles);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [canLoadMore, setCanLoadMore] = useState(false);
   const [params, setParams] = useState<GetArticlesParams>({
     offset: Number(searchParams.get('offset') || 0),
-    limit: Number(searchParams.get('limit') || 0),
+    limit: Number(searchParams.get('limit') || 10),
   });
 
-  const articlesListResponse = useGetArticlesQuery(params);
+  const articlesListResponse = useGetArticlesQuery(params, {
+    options: {
+      enabled: true,
+    },
+  });
 
   useEffect(() => {
-    if (articlesListResponse.isSuccess) {
+    if (articlesListResponse.isSuccess && articlesListResponse.data) {
       setArticles(prev => [...prev, ...articlesListResponse.data.data.items]);
+      setCanLoadMore(
+        articlesListResponse.data.data.pagination.total > articles.length
+      );
     }
   }, [articlesListResponse.isSuccess]);
 
@@ -41,14 +42,18 @@ export const ArticleListProvider: FC<ArticleListProviderProps> = ({
     searchParams.set('offset', String(newOffset));
   };
 
-  if (articlesListResponse.isPending && !articlesListResponse.data) {
+  const value = useMemo(
+    () => ({
+      articles,
+      loadMoreArticles,
+      canLoadMore,
+    }),
+    [articles, canLoadMore]
+  );
+
+  if (articlesListResponse.isLoading) {
     return <ArticleListLoader />;
   }
-
-  const value = useMemo(
-    () => ({ articles, loadMoreArticles, loading: false }),
-    [articles]
-  );
 
   return (
     <ArticleListContext.Provider value={value}>
