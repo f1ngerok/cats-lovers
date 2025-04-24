@@ -40,8 +40,8 @@ export const ArticleList: FC = () => {
             <p className='text-base font-normal text-black'>{article.perex}</p>
 
             <div className='flex items-center gap-1'>
-              <Button asChild className='text-blue-600' variant='link'>
-                <Link to={`/article/${article.articleId}`}>Read more</Link>
+              <Button className='text-blue-600' variant='link'>
+                Read more
               </Button>
               <p className='text-sm text-gray-500'>4 comments</p>
             </div>
