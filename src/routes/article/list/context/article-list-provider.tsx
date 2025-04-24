@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router';
 import { useGetArticlesQuery } from '@/utils/api/hooks';
 import { GetArticlesParams } from '@/utils/api/requests/articles/list';
 
+import { NoArticles } from '../components';
 import { ArticleListLoader } from '../loader';
 import { ArticleListContext } from './article-list-context';
 
@@ -53,6 +54,13 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
 
   if (articlesListResponse.isLoading) {
     return <ArticleListLoader />;
+  }
+
+  if (
+    articlesListResponse.data &&
+    articlesListResponse.data.data.items.length === 0
+  ) {
+    return <NoArticles />;
   }
 
   return (
