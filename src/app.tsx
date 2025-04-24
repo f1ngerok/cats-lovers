@@ -5,13 +5,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import {
   Layout,
   ArticleDetailPage,
-  ArticlesPage,
   ErrorPage,
   ArticleCreatePage,
   ArticleEditPage,
   SignInPage,
   AboutPage,
 } from '@/routes';
+import { ArticlesPage } from '@/routes/article/list/page';
 import { ROUTES } from '@/utils/constants/routes';
 
 const router = createBrowserRouter([
@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: ArticlesPage },
-      { path: 'article/:articleId', Component: ArticleDetailPage },
-      { path: ROUTES.SIGN_IN, Component: SignInPage },
       { path: ROUTES.ABOUT, Component: AboutPage },
+      { path: ROUTES.SIGN_IN, Component: SignInPage },
+      { path: ROUTES.ARTICLES_DETAIL, Component: ArticleDetailPage },
 
-      { path: 'article/:articleId/edit', Component: ArticleEditPage },
+      { path: ROUTES.ARTICLES_EDIT, Component: ArticleEditPage },
       { path: ROUTES.ARTICLE_CREATE, Component: ArticleCreatePage },
 
       { path: '*', Component: ErrorPage },
