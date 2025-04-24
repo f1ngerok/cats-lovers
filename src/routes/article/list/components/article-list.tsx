@@ -3,12 +3,13 @@ import type { FC } from 'react';
 import { Link } from 'react-router';
 
 import { Button } from '@/components/ui';
+import { useArticleListContext } from '@/routes/article/list/context';
 import { IDS } from '@/utils/constants';
 
-import { useArticleListContext } from '../context/useArticleListContext';
+import { NoMoreArticles } from './no-more-articles';
 
 export const ArticleList: FC = () => {
-  const { articles, loadMoreArticles, loading } = useArticleListContext();
+  const { articles, canLoadMore, loadMoreArticles } = useArticleListContext();
 
   return (
     <section className='flex flex-col gap-8' id={IDS.ARTICLE.LIST}>
@@ -48,9 +49,17 @@ export const ArticleList: FC = () => {
         </Link>
       ))}
 
-      <Button disabled={loading} onClick={loadMoreArticles}>
-        Load more
-      </Button>
+      {canLoadMore ? (
+        <Button
+          className='mx-auto w-50'
+          variant='secondary'
+          onClick={loadMoreArticles}
+        >
+          Load more
+        </Button>
+      ) : (
+        <NoMoreArticles />
+      )}
     </section>
   );
 };
