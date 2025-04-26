@@ -22,12 +22,12 @@ const router = createBrowserRouter([
       { index: true, Component: ArticlesPage },
       { path: ROUTES.ABOUT, Component: AboutPage },
       { path: ROUTES.SIGN_IN, Component: SignInPage },
-      { path: ROUTES.ARTICLES_DETAIL, Component: ArticleDetailPage },
+      { path: ROUTES.ARTICLE_DETAIL, Component: ArticleDetailPage },
 
       {
         Component: ProtectedLayout,
         children: [
-          { path: ROUTES.ARTICLES_EDIT, Component: ArticleEditPage },
+          { path: ROUTES.ARTICLE_EDIT, Component: ArticleEditPage },
           { path: ROUTES.ARTICLE_CREATE, Component: ArticleCreatePage },
         ],
       },
