@@ -18,7 +18,7 @@ const Providers: FC<ProvidersProps> = ({ children, query }) => {
       <QueryProvider {...query}>
         {children}
         {process.env.NODE_ENV === 'development' && (
-          <ReactQueryDevtools initialIsOpen={true} />
+          <ReactQueryDevtools initialIsOpen={false} />
         )}
       </QueryProvider>
     </ErrorBoundary>
