@@ -18,3 +18,8 @@ interface QuerySettings<Func = unknown> {
     'queryKey'
   >;
 }
+
+type ErrorResponse = {
+  code: string;
+  message: string;
+};

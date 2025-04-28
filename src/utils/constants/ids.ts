@@ -7,4 +7,14 @@ export const IDS = {
     LIST: 'article-list',
     ITEM: 'article-item',
   },
+  BUTTON: {
+    SIGN_IN: 'button-sign-in',
+  },
+  INPUT: {
+    EMAIL: 'input-email',
+    PASSWORD: 'input-password',
+  },
+  FORM: {
+    SIGN_IN: 'form-sign-in',
+  },
 } as const;
