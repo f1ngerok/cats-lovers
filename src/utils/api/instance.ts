@@ -1,4 +1,5 @@
 import axios, { AxiosHeaders } from 'axios';
+import Cookies from 'js-cookie';
 
 import { STORE } from '@/utils/constants';
 
@@ -6,7 +7,7 @@ const headers = new AxiosHeaders({
   'X-API-KEY': process.env.API_SECRET_KEY,
 });
 
-const authToken = localStorage.getItem(STORE.LOCAL_STORAGE.REQUESTED_ROUTE_KEY);
+const authToken = Cookies.get(STORE.COOKIES.AUTH_TOKEN_KEY);
 if (authToken) {
   headers.set('Authorization', `Bearer ${authToken}`);
 }

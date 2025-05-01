@@ -11,7 +11,7 @@ export const IDS = {
     SIGN_IN: 'button-sign-in',
   },
   INPUT: {
-    EMAIL: 'input-email',
+    USERNAME: 'input-username',
     PASSWORD: 'input-password',
   },
   FORM: {

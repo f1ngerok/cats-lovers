@@ -13,7 +13,7 @@ export const ProtectedLayout: FC = () => {
 
   useEffect(() => {
     if (!Cookies.get(STORE.COOKIES.AUTH_TOKEN_KEY)) {
-      localStorage.setItem(STORE.LOCAL_STORAGE.REQUESTED_ROUTE_KEY, pathname);
+      sessionStorage.setItem(STORE.SESSION.REQUESTED_ROUTE_KEY, pathname);
       navigate(ROUTES.SIGN_IN);
     }
   }, []);

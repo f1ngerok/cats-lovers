@@ -1,7 +1,7 @@
 import { api } from '@/utils/api';
 
 export type SignInRequest = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -12,5 +12,5 @@ export type SignInResponse = {
 };
 
 export const signIn = (payload: SignInRequest) => {
-  return api.post('/auth/login', payload);
+  return api.post('/login', payload);
 };
