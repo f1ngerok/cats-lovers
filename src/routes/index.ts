@@ -1,4 +1,4 @@
-export * from './layout';
+export * from './layouts';
 export * from './article';
 export * from './error';
 export * from './auth';

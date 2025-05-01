@@ -1,7 +1,6 @@
 import type { FC, PropsWithChildren } from 'react';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router';
 
 import { useGetArticlesQuery } from '@/utils/api/hooks';
 import { GetArticlesParams } from '@/utils/api/requests/articles/list';
@@ -11,12 +10,11 @@ import { ArticleListLoader } from '../loader';
 import { ArticleListContext } from './article-list-context';
 
 export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [searchParams] = useSearchParams();
   const [articles, setArticles] = useState<Article[]>([]);
   const [canLoadMore, setCanLoadMore] = useState(false);
   const [params, setParams] = useState<GetArticlesParams>({
-    offset: Number(searchParams.get('offset') || 0),
-    limit: Number(searchParams.get('limit') || 10),
+    offset: 0,
+    limit: 1,
   });
 
   const articlesListResponse = useGetArticlesQuery(params, {
@@ -27,11 +25,19 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (articlesListResponse.isSuccess && articlesListResponse.data) {
-      setArticles(prev => [...prev, ...articlesListResponse.data.data.items]);
-      setCanLoadMore(
-        articlesListResponse.data.data.pagination.total > articles.length
-      );
+      setArticles(prev => {
+        const newArticles = [...prev, ...articlesListResponse.data.data.items];
+        setCanLoadMore(
+          articlesListResponse.data.data.pagination.total > newArticles.length
+        );
+        return newArticles;
+      });
     }
+
+    return () => {
+      setArticles([]);
+      setCanLoadMore(false);
+    };
   }, [articlesListResponse.isSuccess]);
 
   const loadMoreArticles = () => {
@@ -40,7 +46,6 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
       ...prev,
       offset: newOffset,
     }));
-    searchParams.set('offset', String(newOffset));
   };
 
   const value = useMemo(
