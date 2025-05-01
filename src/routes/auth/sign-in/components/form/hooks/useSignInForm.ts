@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Cookies from 'js-cookie';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 
 import type { SignInRequest } from '@/utils/api/requests/auth/sign-in';
 
@@ -18,12 +19,12 @@ export const useSignInForm = () => {
   const signInForm = useForm<SignInRequest>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   });
 
-  const onSubmit = async () => {
+  const onSubmit = signInForm.handleSubmit(async () => {
     await signInMutation
       .mutateAsync(signInForm.getValues())
       .then(({ data }) => {
@@ -31,18 +32,21 @@ export const useSignInForm = () => {
           expires: data.expires_in,
         });
 
-        const requestedRoute = localStorage.getItem(
-          STORE.LOCAL_STORAGE.REQUESTED_ROUTE_KEY
+        const requestedRoute = sessionStorage.getItem(
+          STORE.SESSION.REQUESTED_ROUTE_KEY
         );
 
         if (requestedRoute) {
-          localStorage.removeItem(STORE.LOCAL_STORAGE.REQUESTED_ROUTE_KEY);
+          sessionStorage.removeItem(STORE.SESSION.REQUESTED_ROUTE_KEY);
           navigate(requestedRoute);
         } else {
           navigate(ROUTES.HOME);
         }
+      })
+      .catch(({ response }) => {
+        toast.error(response?.data.message);
       });
-  };
+  });
 
   return {
     form: signInForm,
