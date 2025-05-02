@@ -13,6 +13,7 @@ import {
   ProtectedLayout,
 } from '@/routes';
 import { ArticlesPage } from '@/routes/article/list/page';
+import { SignOutPage } from '@/routes/auth/sign-out/page';
 import { ROUTES } from '@/utils/constants/routes';
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
         children: [
           { path: ROUTES.ARTICLE_EDIT, Component: ArticleEditPage },
           { path: ROUTES.ARTICLE_CREATE, Component: ArticleCreatePage },
+          { path: ROUTES.SIGN_OUT, Component: SignOutPage },
         ],
       },
 
