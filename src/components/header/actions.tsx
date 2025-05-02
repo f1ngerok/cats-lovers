@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 
-import Cookies from 'js-cookie';
 import { Link } from 'react-router';
 
 import { ArrowForwardIcon } from '@/assets/svg';
 import { Avatar, AvatarFallback, AvatarImage, Button } from '@/components/ui';
-import { ROUTES, STORE } from '@/utils/constants';
+import { ROUTES } from '@/utils/constants';
+import { useUserContext } from '@/utils/contexts/user/useUserContext';
 
 export const HeaderActions: FC = () => {
-  const isAuthenticated = Cookies.get(STORE.COOKIES.AUTH_TOKEN_KEY);
+  const { isAuthenticated } = useUserContext();
 
   if (isAuthenticated) {
     return (
