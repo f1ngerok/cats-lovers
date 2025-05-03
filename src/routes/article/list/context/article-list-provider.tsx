@@ -14,7 +14,7 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [canLoadMore, setCanLoadMore] = useState(false);
   const [params, setParams] = useState<GetArticlesParams>({
     offset: 0,
-    limit: 1,
+    limit: 10,
   });
 
   const articlesListResponse = useGetArticlesQuery(params, {
@@ -23,28 +23,38 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
-  useEffect(() => {
-    if (articlesListResponse.isSuccess && articlesListResponse.data) {
-      setArticles(prev => {
-        const newArticles = [...prev, ...articlesListResponse.data.data.items];
-        setCanLoadMore(
-          articlesListResponse.data.data.pagination.total > newArticles.length
-        );
-        return newArticles;
-      });
-    }
+  const handleNewArticles = (newArticles: Article[]) => {
+    setArticles(prev => {
+      const existingIds = new Set(prev.map(article => article.articleId));
+      const uniqueNewArticles = newArticles.filter(
+        article => !existingIds.has(article.articleId)
+      );
 
-    return () => {
-      setArticles([]);
-      setCanLoadMore(false);
-    };
-  }, [articlesListResponse.isSuccess]);
+      if (uniqueNewArticles.length === 0) {
+        return prev;
+      }
+
+      const updatedArticles = [...prev, ...uniqueNewArticles];
+      const totalArticles =
+        articlesListResponse.data?.data.pagination.total ?? 0;
+      setCanLoadMore(totalArticles > updatedArticles.length);
+
+      return updatedArticles;
+    });
+  };
+
+  useEffect(() => {
+    if (articlesListResponse.data) {
+      handleNewArticles(articlesListResponse.data.data.items);
+    }
+  }, [articlesListResponse.data]);
 
   const loadMoreArticles = () => {
-    const newOffset = params.offset + params.limit;
+    if (!canLoadMore) return;
+
     setParams(prev => ({
       ...prev,
-      offset: newOffset,
+      offset: prev.offset + prev.limit,
     }));
   };
 
@@ -57,20 +67,17 @@ export const ArticleListProvider: FC<PropsWithChildren> = ({ children }) => {
     [articles, canLoadMore]
   );
 
-  if (articlesListResponse.isLoading) {
-    return <ArticleListLoader />;
-  }
+  const shouldShowNoArticles =
+    articlesListResponse.data?.data.items.length === 0 && articles.length === 0;
 
-  if (
-    articlesListResponse.data &&
-    articlesListResponse.data.data.items.length === 0
-  ) {
+  if (shouldShowNoArticles) {
     return <NoArticles />;
   }
 
   return (
     <ArticleListContext.Provider value={value}>
       {children}
+      {articlesListResponse.isLoading && <ArticleListLoader />}
     </ArticleListContext.Provider>
   );
 };

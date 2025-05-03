@@ -5,4 +5,5 @@ export const ROUTES = {
   ARTICLE_DETAIL: '/article/:articleId',
   ARTICLE_EDIT: '/article/:articleId/edit',
   SIGN_IN: '/auth/sign-in',
+  SIGN_OUT: '/auth/sign-out',
 } as const;

@@ -9,12 +9,14 @@ import type { SignInRequest } from '@/utils/api/requests/auth/sign-in';
 import { useSignInMutation } from '@/utils/api/hooks';
 import { STORE } from '@/utils/constants';
 import { ROUTES } from '@/utils/constants';
+import { useUserContext } from '@/utils/contexts/user/useUserContext';
 
 import { signInFormSchema } from '../constants';
 
 export const useSignInForm = () => {
   const navigate = useNavigate();
   const signInMutation = useSignInMutation();
+  const { setIsAuthenticated } = useUserContext();
 
   const signInForm = useForm<SignInRequest>({
     resolver: zodResolver(signInFormSchema),
@@ -29,8 +31,9 @@ export const useSignInForm = () => {
       .mutateAsync(signInForm.getValues())
       .then(({ data }) => {
         Cookies.set(STORE.COOKIES.AUTH_TOKEN_KEY, data.access_token, {
-          expires: data.expires_in,
+          expires: data.expires_in / (60 * 60 * 24), // Convert seconds to days
         });
+        setIsAuthenticated(true);
 
         const requestedRoute = sessionStorage.getItem(
           STORE.SESSION.REQUESTED_ROUTE_KEY
