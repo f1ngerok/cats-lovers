@@ -10,4 +10,5 @@ export const articlesKeys = {
     'limit',
     params.limit.toString(),
   ],
+  image: (imageId: string) => [articlesKeys.article, 'image', imageId],
 };

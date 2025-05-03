@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Link } from 'react-router';
 
 import { Button } from '@/components/ui';
+import { ArticleImage } from '@/routes/article/list/components/article-image';
 import { useArticleListContext } from '@/routes/article/list/context';
 import { IDS } from '@/utils/constants';
 
@@ -20,13 +21,7 @@ export const ArticleList: FC = () => {
           id={IDS.ARTICLE.ITEM}
           to={`/article/${article.articleId}`}
         >
-          <div className='h-full max-w-68'>
-            <img
-              alt='Article 1 image'
-              className='h-full w-full rounded-xs object-cover'
-              src='https://picsum.photos/760/500'
-            />
-          </div>
+          <ArticleImage imageId={article.imageId} />
 
           <div className='flex max-w-140 flex-col gap-4'>
             <h4 className='text-2xl font-medium'>{article.title}</h4>
@@ -40,9 +35,7 @@ export const ArticleList: FC = () => {
             <p className='text-base font-normal text-black'>{article.perex}</p>
 
             <div className='flex items-center gap-1'>
-              <Button className='text-blue-600' variant='link'>
-                Read more
-              </Button>
+              <Button variant='link'>Read more</Button>
               <p className='text-sm text-gray-500'>4 comments</p>
             </div>
           </div>
